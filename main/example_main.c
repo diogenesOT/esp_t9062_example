@@ -40,12 +40,16 @@ void app_main(void) {
 
     ESP_LOGI(TAG, "[app_main] app started");
 
+    // power sensor
+    ESP_LOGI(TAG, "##### POWER SENSOR #####");
     ret = t9062_set_sensor_power(&t9062_sensor, true);
     if (ret != ESP_OK) {
         ESP_LOGE(TAG, "[app_main] error t9062_set_sensor_power");
     }
-    vTaskDelay(pdMS_TO_TICKS(70));  // wait for sensor to power up
+    vTaskDelay(pdMS_TO_TICKS(70));
 
+    // set up i2c port
+    ESP_LOGI(TAG, "##### SETUP I2C #####");
     ret = i2c_param_config(t9062_sensor.i2c_port, &i2c_config);
     if (ret != ESP_OK) {
         ESP_LOGE(TAG, "[app_main] error i2c_param_config");
@@ -55,6 +59,8 @@ void app_main(void) {
         ESP_LOGE(TAG, "[app_main] error i2c_driver_install");
     }
 
+    // t9062_read()
+    ESP_LOGI(TAG, "##### READ SENSOR #####");
     ret = t9062_read(&t9062_sensor);
     if (ret != ESP_OK) {
         ESP_LOGE(TAG, "t9062_read() returned error %i", ret);
@@ -63,6 +69,8 @@ void app_main(void) {
     }
 
 #ifdef EXAMPLE_CHANGE_ADDRESS
+    // t9062_change_address()
+    ESP_LOGI(TAG, "##### CHANGE ADDRESS #####");
     ret = t9062_change_address(&t9062_sensor, CONFIG_SENSOR_NEW_ADDRESS);
     if (ret != 0) {
         ESP_LOGE(TAG, "t9062_change_address() returned error %i", ret);
@@ -70,6 +78,8 @@ void app_main(void) {
 #endif
 
 #ifdef EXAMPLE_READ_REGISTER
+    // read registers
+    ESP_LOGI(TAG, "##### READ REG #####");
     uint16_t register_data[T9062_REGISTERS_SIZE];
     for (i = 0; i < T9062_REGISTERS_SIZE; i++) {
         register_data[i] = 0xFFFF;
@@ -83,6 +93,8 @@ void app_main(void) {
     }
 
 #ifdef EXAMPLE_WRITE_REGISTER
+    // write register
+    ESP_LOGI(TAG, "##### WRITE REG #####");
     register_data[T9062_REG_CUST_ID2]++; // upcount the registers value
     ESP_LOGI(TAG, "writing 0x%04X to %s register", register_data[T9062_REG_CUST_ID2],
              t9062_register_name[T9062_REG_CUST_ID2]);
@@ -99,6 +111,8 @@ void app_main(void) {
     vTaskDelay(pdMS_TO_TICKS(10000));
 
     while (1) {
+        ESP_LOGI(TAG, "[app_main] b Free memory: %d bytes", esp_get_free_heap_size());
+        // read sensor
         t9062_read(&t9062_sensor);
         ESP_LOGI(TAG, "[app_main] t: %.1f°C rH: %.1f%%", t9062_sensor.temperature, t9062_sensor.humidity);
         t9062_read(&t9062_sensor);
