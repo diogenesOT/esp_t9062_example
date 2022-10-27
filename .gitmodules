@@ -1,6 +1,3 @@
-[submodule "components/t9062"]
-	path = components/t9062
-	url = git@github.com:diogenesOT/t9062.git
 [submodule "components/esp_t9062"]
 	path = components/esp_t9062
 	url = git@github.com:diogenesOT/esp_t9062.git
