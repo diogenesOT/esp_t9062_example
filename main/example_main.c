@@ -1,7 +1,7 @@
 #include <driver/gpio.h>
 #include <esp_log.h>
 
-#include "t9062.h"
+#include "esp_t9062.h"
 
 #define EXAMPLE_READ_REGISTER
 #define EXAMPLE_WRITE_REGISTER
