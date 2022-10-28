@@ -1,6 +1,6 @@
 # This is a esp idf workflow to build ESP32 based project
 
-name: Build and Artifact the ESP-IDF Project
+name: Build esp_t9062_example
 
 # Controls when the action will run. 
 on:
