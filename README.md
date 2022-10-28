@@ -3,7 +3,7 @@ esp-t9062-example
 ![Build Status](https://github.com/diogenesOT/esp_t9062_example/actions/workflows/build.yml/badge.svg)
 
 
-This project includes a sample program and a program to run uint/integration tests for the [esp_t9062](https://github.com/diogenesOT/esp_t9062) library.
+This project includes a sample program and a program to run unit/integration tests for the [esp_t9062](https://github.com/diogenesOT/esp_t9062) library.
 
 
 
