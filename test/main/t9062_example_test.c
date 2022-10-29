@@ -8,6 +8,11 @@
 #include <stdbool.h>
 #include <unity.h>
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 static void print_banner(const char *text);
 
 void app_main(void) {
@@ -24,3 +29,7 @@ void app_main(void) {
 }
 
 static void print_banner(const char *text) { printf("\n#### %s #####\n\n", text); }
+
+#ifdef __cplusplus
+}
+#endif

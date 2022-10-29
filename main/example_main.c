@@ -3,6 +3,11 @@
 
 #include "esp_t9062.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 #define EXAMPLE_READ_REGISTER
 #define EXAMPLE_WRITE_REGISTER
 /* #define EXAMPLE_CHANGE_ADDRESS */
@@ -120,3 +125,7 @@ void app_main(void) {
         vTaskDelay(pdMS_TO_TICKS(MAIN_TASK_LOOP_DELAY));
     }
 }
+
+#ifdef __cplusplus
+}
+#endif
