@@ -3,6 +3,11 @@
 
 #include "esp_t9062.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 #define EXAMPLE_READ_REGISTER
 #define EXAMPLE_WRITE_REGISTER
 /* #define EXAMPLE_CHANGE_ADDRESS */
@@ -111,12 +116,15 @@ void app_main(void) {
     vTaskDelay(pdMS_TO_TICKS(10000));
 
     while (1) {
-        ESP_LOGI(TAG, "[app_main] b Free memory: %d bytes", esp_get_free_heap_size());
         // read sensor
         t9062_read(&t9062_sensor);
-        ESP_LOGI(TAG, "[app_main] t: %.1f°C rH: %.1f%%", t9062_sensor.temperature, t9062_sensor.humidity);
+        ESP_LOGI(TAG, "[app_main] t: %.1f°C rH: %.1f%% status: %i(0)", t9062_sensor.temperature, t9062_sensor.humidity, t9062_get_status(t9062_sensor.raw_data[0]));
         t9062_read(&t9062_sensor);
-        ESP_LOGI(TAG, "[app_main] t: %.1f°C rH: %.1f%%", t9062_sensor.temperature, t9062_sensor.humidity);
+        ESP_LOGI(TAG, "[app_main] t: %.1f°C rH: %.1f%% status: %i(1)", t9062_sensor.temperature, t9062_sensor.humidity, t9062_get_status(t9062_sensor.raw_data[0]));
         vTaskDelay(pdMS_TO_TICKS(MAIN_TASK_LOOP_DELAY));
     }
 }
+
+#ifdef __cplusplus
+}
+#endif
